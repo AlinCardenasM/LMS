@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/course', function(){
-    return view('lms.course.form');
+    return view('lms.course.create');
 });
 
 Route::get('/dashboard', function () {
