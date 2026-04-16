@@ -1,0 +1,93 @@
+<x-app-layout>
+    <x-slot name="header">
+    <div class="flex justify-between items-center w-full">
+        
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Cursos') }}
+        </h2>
+
+        <x-dropdown-link href="#" class="max-w-max text-blue-600">
+            {{('Crear') }}
+        </x-dropdown-link>
+
+    </div>
+</x-slot>
+
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+               <x-card image="https://picsum.photos/400/300" title="Curso de Laravel" description="Aprende Laravel desde cero"> 
+                    <div class="flex justify-center gap-2">
+                        <a href="#" class= "text-blue-500">
+                            Ver
+                        </a>
+
+                        <a href="#" class="text-yellow-600">
+                            Editar
+                        </a>
+                        <a href="#" class="text-red-700">
+                            Eliminar
+                        </a>
+                    </div>
+                </x-card> 
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+               <x-card image="https://picsum.photos/400/300" title="Curso de Laravel" description="Aprende Laravel desde cero"> 
+                    <div class="flex justify-center gap-2">
+                        <a href="#" class= "text-blue-500">
+                            Ver
+                        </a>
+
+                        <a href="#" class="text-yellow-600">
+                            Editar
+                        </a>
+                        <a href="#" class="text-red-700">
+                            Eliminar
+                        </a>
+                    </div>
+                </x-card>  
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+               <x-card image="https://picsum.photos/400/300" title="Curso de Laravel" description="Aprende Laravel desde cero"> 
+                    <div class="flex justify-center gap-2">
+                        <a href="#" class= "text-blue-500">
+                            Ver
+                        </a>
+
+                        <a href="#" class="text-yellow-600">
+                            Editar
+                        </a>
+                        <a href="#" class="text-red-700">
+                            Eliminar
+                        </a>
+                    </div>
+                </x-card>  
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+               <x-card image="https://picsum.photos/400/300" title="Curso de Laravel" description="Aprende Laravel desde cero"> 
+                    <div class="flex justify-center gap-2">
+                        <a href="#" class= "text-blue-500">
+                            Ver
+                        </a>
+
+                        <a href="#" class="text-yellow-600">
+                            Editar
+                        </a>
+                        <a href="#" class="text-red-700">
+                            Eliminar
+                        </a>
+                    </div>
+                </x-card> 
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</x-app-layout>
