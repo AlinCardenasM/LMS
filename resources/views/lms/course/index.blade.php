@@ -6,7 +6,7 @@
                 {{ __('Cursos') }}
             </h2>
 
-            <x-dropdown-link href="#" class="max-w-max text-blue-600">
+            <x-dropdown-link href="{{ route('course.create') }}" class="max-w-max text-blue-600">
                 {{('Crear') }}
             </x-dropdown-link>
 
@@ -18,7 +18,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                <x-card image="https://picsum.photos/400/300" title="Curso de Laravel" description="Aprende Laravel desde cero"> 
                     <div class="flex justify-center gap-2">
-                        <a href="#" class= "text-blue-500">
+                        <a href="" class= "text-blue-500">
                             Ver
                         </a>
 
