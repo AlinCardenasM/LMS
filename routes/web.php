@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Assigments\AssigmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Materials\MaterialController;
 use App\Http\Controllers\Modules\ModuleController;
@@ -27,5 +28,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('course', CourseController::class);
 Route::resource('module', ModuleController::class);
 Route::resource('material', MaterialController::class);
+Route::resource('assigment', AssigmentController::class);
 
 require __DIR__.'/auth.php';
