@@ -4,17 +4,42 @@
     <x-nav-classroom active="trabajo" />
 
     <div class="max-w-5xl mx-auto mt-6">
+            <!-- BOTÓN CREAR -->
+            <div x-data="{ open: false }" class="relative inline-block">
 
-        <!-- BOTÓN CREAR -->
-        <div class="flex justify-center mb-6">
-            <a href="{{ route('module.create') }}" class="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full shadow hover:bg-blue-700 transition">
-                <span class="text-lg">+</span>
-                Crear
+        <!-- BOTÓN -->
+        <button 
+            @click="open = !open"
+            class="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full shadow hover:bg-blue-700 transition">
+            
+            <span class="text-lg">+</span>
+            Crear
+        </button>
+
+        <!-- MENÚ -->
+        <div 
+            x-show="open"
+            @click.outside="open = false"
+            x-transition
+            class="absolute mt-2 w-48 bg-white rounded-xl shadow-lg z-50">
+
+            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">
+                Tarea
+            </a>
+
+            <a href="{{ route('material.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+                Material
+            </a>
+
+            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">
+                Tema
             </a>
         </div>
 
+    </div>
+
         <!-- LÍNEA -->
-        <div class="border-t border-gray-300 mb-10"></div>
+        <div class="border-t border-gray-300 mb-10 mt-3"></div>
 
         <!-- ESTADO VACÍO -->
         <div class="flex flex-col items-center justify-center text-center mt-10">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Materials\MaterialController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +26,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('course', CourseController::class);
 Route::resource('module', ModuleController::class);
+Route::resource('material', MaterialController::class);
 
 require __DIR__.'/auth.php';
