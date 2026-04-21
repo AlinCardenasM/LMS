@@ -13,35 +13,19 @@
 <!-- DESCRIPCIÓN -->
 <div class="mt-4">
     <x-input-label for="description" value="Descripción" />
-    <textarea 
-        id="description" 
-        name="description"
-        class="block mt-1 w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-white"
-        rows="4"
-        required
-    ></textarea>
+    <textarea  id="description"  name="description" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-white" rows="4" require ></textarea>
 </div>
 
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="image" value="Imagen del curso" />
-    <input 
-        id="image" 
-        name="image" 
-        type="file" 
-        class="block mt-1 w-full text-sm text-gray-500"
-    >
+    <input id="image" name="image" type="file" class="block mt-1 w-full text-sm text-gray-500">
 </div>
 
 <!-- CÓDIGO DE ACCESO -->
 <div class="mt-4">
     <x-input-label for="access_code" value="Código de acceso" />
-    <x-text-input 
-        id="access_code" 
-        name="access_code" 
-        type="text" 
-        class="block mt-1 w-full" 
-    />
+    <x-text-input id="access_code" name="access_code" type="text" class="block mt-1 w-full" />
 </div>
 
 <!-- STATUS -->
