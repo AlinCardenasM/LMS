@@ -1,25 +1,19 @@
 <!-- TÍTULO -->
 <div class="mt-2">
     <x-input-label for="title" value="Título del curso" />
-    <x-text-input 
-        id="title" 
-        name="title" 
-        type="text" 
-        class="block mt-1 w-full" 
-        required 
-    />
+    <x-text-input id="title" name="title" type="text" class="block mt-1 w-full" required/>
 </div>
 
 <!-- DESCRIPCIÓN -->
 <div class="mt-4">
     <x-input-label for="description" value="Descripción" />
-    <textarea  id="description"  name="description" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-white" rows="4" require ></textarea>
+    <x-textarea id="description" name="description" rows="4" required />
 </div>
 
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="image" value="Imagen del curso" />
-    <input id="image" name="image" type="file" class="block mt-1 w-full text-sm text-gray-500">
+    <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
 </div>
 
 <!-- CÓDIGO DE ACCESO -->
