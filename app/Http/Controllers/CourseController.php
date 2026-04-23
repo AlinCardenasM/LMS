@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -14,7 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('lms.course.show');
+        $courses = Course::paginate(10);
+        return view('lms.course.index', compact('courses'));
     }
 
     /**
@@ -46,7 +48,7 @@ class CourseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('lms.course.edit', compact('id'));
     }
 
     /**
