@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Module\StoreModuleRequest;
+use App\Http\Requests\Module\UpdateModuleRequest;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -26,7 +28,7 @@ class ModuleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreModuleRequest $request)
     {
         //
     }
@@ -50,7 +52,7 @@ class ModuleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateModuleRequest $request, string $id)
     {
         //
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Materials;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Material\StoreMaterialRequest;
+use App\Http\Requests\Material\UpdateMaterialRequest;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
@@ -26,7 +28,7 @@ class MaterialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMaterialRequest $request)
     {
         //
     }
@@ -50,7 +52,7 @@ class MaterialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMaterialRequest $request, string $id)
     {
         //
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Assigments;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Assignment\StoreAssignmentRequest;
+use App\Http\Requests\Assignment\UpdateAssignmentRequest;
 use Illuminate\Http\Request;
 
 class AssigmentController extends Controller
@@ -26,7 +28,7 @@ class AssigmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAssignmentRequest $request)
     {
         //
     }
@@ -50,7 +52,7 @@ class AssigmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAssignmentRequest $request, string $id)
     {
         //
     }

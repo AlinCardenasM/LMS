@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\StoreCourseRequest;
+use App\Http\Requests\Course\StoreRequest;
+use App\Http\Requests\Course\UpdateCourseRequest;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -25,7 +28,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
         //
     }
@@ -49,7 +52,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCourseRequest $request, string $id)
     {
         //
     }
