@@ -16,28 +16,25 @@
     <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
 </div>
 
-<!-- CÓDIGO DE ACCESO -->
-<div class="mt-4">
-    <x-input-label for="access_code" value="Código de acceso" />
-    <x-text-input id="access_code" name="access_code" type="text" class="block mt-1 w-full" />
-</div>
-
 <!-- STATUS -->
 <div class="mt-4">
     <x-input-label for="status" value="Estado" />
-    <select 
-        id="status" 
-        name="status" 
-        class="block mt-1 w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
-    >
-        <option value="activo">Activo</option>
-        <option value="inactivo">Inactivo</option>
+    <select name="course_status_id" id="course_status_id" class="block mt-1 w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-white">
+        @foreach ($status as $name => $id)
+            <option value="{{ $id }}"
+                {{ old('course_status_id', $course->status_id ?? '') == $id ? 'selected' : '' }}>
+                {{ $name }}
+            </option>
+        @endforeach
     </select>
 </div>
 
 <!-- BOTÓN -->
 <div class="mt-6 flex justify-end">
-    <x-primary-button>
-        Guardar curso
-    </x-primary-button>
+    <button 
+    type="submit"
+    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition duration-200"
+>
+    Guardar curso
+</button>
 </div>

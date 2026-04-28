@@ -1,4 +1,4 @@
-@props(['image', 'title', 'description'])
+@props(['image', 'title', 'description', 'access_code'])
 
 <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden hover:shadow-lg transition h-full flex flex-col ">
     
@@ -14,6 +14,12 @@
         <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 flex-1">
             {{ $description }}
         </p>
+
+        <div class="mt-2">
+            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                Código: {{ $access_code }}
+            </span>
+        </div>
 
         <div class="mt-4">
             {{ $slot }}

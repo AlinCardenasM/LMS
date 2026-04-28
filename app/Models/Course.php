@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Course extends Model
 {
@@ -12,9 +13,18 @@ class Course extends Model
         'title',
         'description',
         'image',
-        'access_code',
         'course_status_id'
     ];
+
+    protected static function booted()
+    {
+        static::creating(function (Course $course) {
+        do {
+            $code = strtoupper(Str::random(6));
+        } while (self::where('access_code', $code)->exists());
+            $course->access_code = $code;
+        });
+    }
 
     public function status()
     {
@@ -25,6 +35,5 @@ class Course extends Model
     {
         return $this->hasMany(Module::class);
     }
-
 
 }

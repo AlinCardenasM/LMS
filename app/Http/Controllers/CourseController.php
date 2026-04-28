@@ -6,6 +6,7 @@ use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Models\Course;
+use App\Models\Course_status;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -24,15 +25,18 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('lms.course.create');
+        $status = Course_status::pluck('id', 'name');
+        $course = new Course();
+        return view('lms.course.create', compact('status', 'course'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseRequest $request)
+    public function store(Request $request)
     {
-        //
+        Course::create($request->all());
+        return to_route('course.index');
     }
 
     /**
