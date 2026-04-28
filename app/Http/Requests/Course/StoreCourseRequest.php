@@ -26,7 +26,7 @@ class StoreCourseRequest extends FormRequest
             'title' => 'required|max:50',
             'description' => 'max:500',
             'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            'code' => 'min:5|max:7|required|unique',
+            'code' => 'min:5|max:7|unique',
             'course_status_id' => 'required'
         ];
     }

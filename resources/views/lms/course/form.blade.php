@@ -13,7 +13,7 @@
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="image" value="Imagen del curso" />
-    <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
+    <x-text-input id="image" name="image" type="file" class="block mt-1 w-full" />
 </div>
 
 <!-- STATUS -->
@@ -31,10 +31,5 @@
 
 <!-- BOTÓN -->
 <div class="mt-6 flex justify-end">
-    <button 
-    type="submit"
-    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition duration-200"
->
-    Guardar curso
-</button>
+    <x-primary-button> Crear curso </x-primary-button>
 </div>

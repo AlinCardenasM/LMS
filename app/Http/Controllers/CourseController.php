@@ -33,9 +33,30 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
-        Course::create($request->all());
+        /* Aqui se obtienen los datos validados */
+        $data = $request->validated();
+        /* Manejo de imagen */
+        if ($request->hasFile('image')) {
+            $filename = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploads/courses'), $filename);
+            // guardar SOLO el nombre o la ruta
+            $data['image'] = 'uploads/courses/' . $filename;
+        } else {
+            $files = glob(public_path('uploads/defaults/*'));
+
+            if ($files) {
+                $randomImage = $files[array_rand($files)];
+
+                // guardar ruta relativa
+                $data['image'] = 'uploads/defaults/' . basename($randomImage);
+            } else {
+                $data['image'] = null; // fallback
+            }
+        }
+
+        Course::create($data);
         return to_route('course.index');
     }
 

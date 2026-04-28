@@ -16,7 +16,7 @@
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($courses as $course)
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <x-card image="https://picsum.photos/400/300" :title="$course->title" :description="$course->description" :access_code="$course->access_code"> 
+                    <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code"> 
                         <div class="flex justify-center gap-2">
                             <a href="{{ route('course.show', $course) }}" class="text-blue-500">Ver</a>
                             <a href="{{ route('course.edit', $course) }}" class="text-yellow-600">Editar</a>
