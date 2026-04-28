@@ -45,14 +45,12 @@ class CourseController extends Controller
             $data['image'] = 'uploads/courses/' . $filename;
         } else {
             $files = glob(public_path('uploads/defaults/*'));
-
             if ($files) {
                 $randomImage = $files[array_rand($files)];
-
                 // guardar ruta relativa
                 $data['image'] = 'uploads/defaults/' . basename($randomImage);
             } else {
-                $data['image'] = null; // fallback
+                $data['image'] = null; 
             }
         }
 
@@ -63,32 +61,44 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        return view('lms.course.show');
+        return view('lms.course.show', compact('course'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course)
     {
-        return view('lms.course.edit', compact('id'));
+        $status = Course_status::pluck('id', 'name');
+        return view('lms.course.edit', compact('status', 'course'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, string $id)
+    public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $data = $request->validated();
+        /* Manejo de imagen */
+        if ($request->hasFile('image')) {
+            $filename = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploads/courses'), $filename);
+            // guardar SOLO el nombre o la ruta
+            $data['image'] = 'uploads/courses/' . $filename;
+        }
+
+        $course->update($data);
+        return to_route('course.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Course $course)
     {
-        //
+        $delete = $course -> delete();
+        return to_route('course.index', $delete);
     }
 }
