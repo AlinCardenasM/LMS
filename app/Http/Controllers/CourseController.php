@@ -55,7 +55,7 @@ class CourseController extends Controller
         }
 
         Course::create($data);
-        return to_route('course.index');
+        return to_route('courses.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class CourseController extends Controller
         }
 
         $course->update($data);
-        return to_route('course.index');
+        return to_route('courses.index');
     }
 
     /**
@@ -99,6 +99,6 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $delete = $course -> delete();
-        return to_route('course.index', $delete);
+        return to_route('courses.index', $delete);
     }
 }

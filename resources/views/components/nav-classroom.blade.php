@@ -2,9 +2,9 @@
     <nav class="max-w-6xl mx-auto flex space-x-8 px-4">
 
         <!-- TABLÓN -->
-        <a href="{{ route('course.index') }}" 
+        <a href="{{ route('courses.index') }}" 
            class="py-4 text-sm font-medium border-b-2 
-           {{ request()->routeIs('course.index') 
+           {{ request()->routeIs('courses.index') 
                 ? 'border-blue-600 text-blue-600' 
                 : 'text-gray-500 hover:text-gray-700' }}">
             Tablón

@@ -5,7 +5,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Cursos') }}
             </h2>
-            <x-dropdown-link href="{{ route('course.create') }}" class="max-w-max text-blue-600">
+            <x-dropdown-link href="{{ route('courses.create') }}" class="max-w-max text-blue-600">
                 {{('Crear') }}
             </x-dropdown-link>
 
@@ -18,9 +18,9 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code"> 
                         <div class="flex justify-center gap-2">
-                            <a href="{{ route('course.show', $course) }}" class="text-blue-500">Ver</a>
-                            <a href="{{ route('course.edit', $course) }}" class="text-yellow-600">Editar</a>
-                            <form action="{{ route('course.destroy', $course) }}" method="post">
+                            <a href="{{ route('courses.show', $course) }}" class="text-blue-500">Ver</a>
+                            <a href="{{ route('courses.edit', $course) }}" class="text-yellow-600">Editar</a>
+                            <form action="{{ route('courses.destroy', $course) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600">Borrar</button>
