@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <!-- TABS -->
-    <x-nav-classroom active="trabajo" />
+    <x-nav-classroom :course="$course->id"/>
 
     <div class="max-w-5xl mx-auto mt-6">
             <!-- BOTÓN CREAR -->
@@ -31,7 +31,7 @@
                 Material
             </a>
 
-            <a href="{{ route('module.create') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+            <a href="{{ route('courses.modules.create', $course) }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
                 Tema
             </a>
         </div>

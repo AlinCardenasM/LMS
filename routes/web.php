@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('courses', CourseController::class);
-Route::resource('module', ModuleController::class);
+Route::resource('courses.modules', ModuleController::class);
 Route::resource('material', MaterialController::class);
 Route::resource('assigment', AssigmentController::class);
 

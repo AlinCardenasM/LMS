@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Module\StoreModuleRequest;
 use App\Http\Requests\Module\UpdateModuleRequest;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -12,9 +13,9 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course)
     {
-        return view('lms.module.index');
+        return view('lms.module.index', compact('course'));
     }
 
     /**

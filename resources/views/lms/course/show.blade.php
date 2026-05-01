@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-nav-classroom/>
+    <x-nav-classroom :course="$course->id" />
     <div class="min-h-screen bg-gray-100">
         <!-- HEADER / BANNER -->
         <div class="max-w-6xl mx-auto mt-6">
