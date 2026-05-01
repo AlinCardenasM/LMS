@@ -24,7 +24,6 @@ class StoreModuleRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
-            'course_id' => 'required',
         ];
     }
 }
