@@ -1,14 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
-            
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Cursos') }}
             </h2>
-            <x-dropdown-link href="{{ route('courses.create') }}" class="max-w-max text-blue-600">
-                {{('Crear') }}
-            </x-dropdown-link>
-
+            <a href="{{ route('courses.create') }}" class="text-blue-500">Crear</a>
         </div>
     </x-slot>
 

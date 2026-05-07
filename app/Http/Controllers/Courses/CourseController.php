@@ -16,6 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
+        /* Obtener cursos y se envien paginados a la vista */
         $courses = Course::paginate(10);
         return view('lms.course.index', compact('courses'));
     }
@@ -25,7 +26,9 @@ class CourseController extends Controller
      */
     public function create()
     {
+        /* Obtener informacion de atributo fonaneo solo id, nombre */
         $status = Course_status::pluck('id', 'name');
+        /* Generar instancia de course */
         $course = new Course();
         return view('lms.course.create', compact('status', 'course'));
     }
@@ -39,11 +42,14 @@ class CourseController extends Controller
         $data = $request->validated();
         /* Manejo de imagen */
         if ($request->hasFile('image')) {
+            /* Crear nombre de imagen */
             $filename = time() . '.' . $request->image->extension();
+            /* Obtener imagen y enviarla a carpeta uploads/courses */
             $request->image->move(public_path('uploads/courses'), $filename);
             // guardar SOLO el nombre o la ruta
             $data['image'] = 'uploads/courses/' . $filename;
         } else {
+            /* Obtener imagen al azar que ya se encuentra guardada */
             $files = glob(public_path('uploads/defaults/*'));
             if ($files) {
                 $randomImage = $files[array_rand($files)];
@@ -53,7 +59,7 @@ class CourseController extends Controller
                 $data['image'] = null; 
             }
         }
-
+        /* Crear curso con informacion validada */
         Course::create($data);
         return to_route('courses.index');
     }
@@ -63,6 +69,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        /* Retorna vista show */
         return view('lms.course.show', compact('course'));
     }
 
@@ -71,6 +78,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        /* Obtener informacion de atributo fonaneo solo id, nombre */
         $status = Course_status::pluck('id', 'name');
         return view('lms.course.edit', compact('status', 'course'));
     }
@@ -80,6 +88,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
+        /* Obtiene del request infromacion validada */
         $data = $request->validated();
         /* Manejo de imagen */
         if ($request->hasFile('image')) {
@@ -88,7 +97,7 @@ class CourseController extends Controller
             // guardar SOLO el nombre o la ruta
             $data['image'] = 'uploads/courses/' . $filename;
         }
-
+        /* Actualiza infromacion */
         $course->update($data);
         return to_route('courses.index');
     }

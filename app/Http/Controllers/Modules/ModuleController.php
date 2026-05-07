@@ -16,6 +16,7 @@ class ModuleController extends Controller
      */
     public function index(Course $course)
     {
+        /* Obtener modulos relacionados a cursos */
         $modules = $course->modules;
         return view('lms.module.index', compact('course', 'modules'));
     }
@@ -25,6 +26,7 @@ class ModuleController extends Controller
      */
     public function create(Course $course)
     {
+        /* geenra intancia para crear modulo */
         $module = new Module();
         return view('lms.module.create', compact('module', 'course'));
     }
@@ -34,11 +36,13 @@ class ModuleController extends Controller
      */
     public function store(StoreModuleRequest $request, Course $course)
     {
+        /* Obtener informacion validada */
         $data = $request->validated();
         /* Aqui se envía el id que se obtiene de la URL */
         $data['course_id'] = $course->id;
+        /* COn la data validada se crea el modulo */
         Module::create($data);
-        return to_route('courses.modules.index', $course);
+        return to_route('courses.modules.index', compact('course'));
     }
 
     /**
@@ -62,9 +66,11 @@ class ModuleController extends Controller
      */
     public function update(UpdateModuleRequest $request, Course $course, Module $module)
     {
+        /* Obtener infromacion validada */
         $data = $request->validated();
+        /* Actualizar infromacion */
         $module->update($data);
-        return to_route('courses.modules.index', $course);
+        return to_route('courses.modules.index', compact('course'));
     }
 
     /**
@@ -73,6 +79,6 @@ class ModuleController extends Controller
     public function destroy(Course $course, Module $module)
     {
         $delete = $module -> delete();
-        return to_route('courses.modules.index', $course);
+        return to_route('courses.modules.index', compact('course'));
     }
 }
