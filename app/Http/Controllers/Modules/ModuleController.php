@@ -72,6 +72,7 @@ class ModuleController extends Controller
      */
     public function destroy(Course $course, Module $module)
     {
-        //
+        $delete = $module -> delete();
+        return to_route('courses.modules.index', $course);
     }
 }

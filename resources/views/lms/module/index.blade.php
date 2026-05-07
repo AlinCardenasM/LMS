@@ -16,7 +16,11 @@
                     <!-- Botones juntos a la derecha -->
                     <div class="flex space-x-2">
                         <a href="{{ route('courses.modules.edit', [$course,$module]) }}" class="text-blue-600 hover:underline">Editar</a>
-                        <a href="{{ route('courses.modules.destroy', [$course,$module]) }}" class="text-red-600 hover:underline">Borrar</a>
+                        <form action="{{ route('courses.modules.destroy', [$course,$module]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600">Borrar</button>
+                        </form>
                     </div>
                 </div>
                 @endforeach
