@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\Assigments\AssigmentController;
-use App\Http\Controllers\ContentController;
-use App\Http\Controllers\ContentController as ControllersContentController;
-use App\Http\Controllers\Contents\ContentController as ContentsContentController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Contents\ContentController;
+use App\Http\Controllers\Courses\CourseController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -12,10 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('courses', CourseController::class);
 Route::resource('courses.modules', ModuleController::class);
-Route::resource('content', ContentsContentController::class);
+Route::resource('content', ContentController::class);
 Route::resource('assigment', AssigmentController::class);
 
 require __DIR__.'/auth.php';

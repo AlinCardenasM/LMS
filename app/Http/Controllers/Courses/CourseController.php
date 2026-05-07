@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Courses;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\StoreCourseRequest;
-use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Models\Course;
 use App\Models\Course_status;
