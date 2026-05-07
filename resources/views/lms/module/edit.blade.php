@@ -9,8 +9,10 @@
     
     <div class="py-2">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            @include('fragment.errors_forms')
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6">
-                <form method="PUT" action="" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('courses.modules.update', [$course, $module]) }}" enctype="multipart/form-data">
+                    @method('PATCH')
                     @csrf
                     @include('lms.module.form')
                 </form>

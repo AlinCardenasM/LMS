@@ -16,7 +16,8 @@ class ModuleController extends Controller
      */
     public function index(Course $course)
     {
-        return view('lms.module.index', compact('course'));
+        $modules = $course->modules;
+        return view('lms.module.index', compact('course', 'modules'));
     }
 
     /**
@@ -43,7 +44,7 @@ class ModuleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Module $module)
+    public function show(Course $course, Module $module )
     {
         //
     }
@@ -51,23 +52,25 @@ class ModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Module $module)
+    public function edit(Course $course, Module $module)
     {
-        //
+        return view('lms.module.edit', compact('module', 'course'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateModuleRequest $request, Module $module)
+    public function update(UpdateModuleRequest $request, Course $course, Module $module)
     {
-        //
+        $data = $request->validated();
+        $module->update($data);
+        return to_route('courses.modules.index', $course);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Module $module)
+    public function destroy(Course $course, Module $module)
     {
         //
     }
