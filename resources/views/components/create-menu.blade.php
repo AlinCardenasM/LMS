@@ -20,7 +20,7 @@
             Tarea
         </a>
 
-        <a href="{{ route('content.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+        <a href="{{ route('content.create') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
             Material
         </a>
 

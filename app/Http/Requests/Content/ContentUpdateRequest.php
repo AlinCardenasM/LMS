@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Material;
+namespace App\Http\Requests\Content;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMaterialRequest extends FormRequest
+class ContentUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

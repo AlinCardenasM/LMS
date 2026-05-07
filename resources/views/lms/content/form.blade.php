@@ -16,6 +16,16 @@
     <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
 </div>
 
+<div class="mt-4">
+    <x-input-label for="module_id" value="Módulo" />
+
+    <select name="module_id" id="module_id" class="block mt-1 w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-white">
+        @foreach ($module as $id => $title)
+            <option value="{{ $id }}" {{ old('module_id', $content->module_id ?? '') == $id ? 'selected' : '' }}> {{ $title }} </option>
+        @endforeach
+    </select>
+</div>
+
 <!-- BOTÓN -->
 <div class="mt-6 flex justify-end">
     <x-primary-button>

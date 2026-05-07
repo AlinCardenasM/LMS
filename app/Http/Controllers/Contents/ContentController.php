@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Contents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Content\ContentStoreRequest;
+use App\Http\Requests\Content\ContentUpdateRequest;
 use App\Models\Content;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -21,21 +24,23 @@ class ContentController extends Controller
      */
     public function create()
     {
-        return view('lms.content.create');
+        $module = Module::pluck('id', 'title');
+        $content = new Content();
+        return view('lms.content.create', compact('module', 'content'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ContentStoreRequest $request)
     {
-        //
+        $request ->validated();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Content $content)
     {
         //
     }
@@ -43,7 +48,7 @@ class ContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Content $content)
     {
         //
     }
@@ -51,7 +56,7 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ContentUpdateRequest $request, Content $content)
     {
         //
     }
@@ -59,7 +64,7 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Content $content)
     {
         //
     }

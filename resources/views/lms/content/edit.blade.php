@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center w-full">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Editar material') }}
+                {{ __('Editar contenido') }}
             </h2>
         </div>
     </x-slot>
@@ -12,7 +12,7 @@
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6">
                 <form method="POST" action="" enctype="multipart/form-data">
                     @csrf
-                    @include('lms.material.form')
+                    @include('lms.content.form')
                 </form>
             </div>
         </div>

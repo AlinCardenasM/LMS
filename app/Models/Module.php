@@ -27,4 +27,9 @@ class Module extends Model
     {
         return $this->hasMany(Assignment::class);
     }
+
+    public function files()
+    {
+        return $this->hasMany(ContentFile::class);
+    }
 }
