@@ -13,7 +13,7 @@
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="file" value="Archivo" />
-    <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
+    <input type="file" name="files[]" multiple accept=".jpg,.jpeg,.png,.pdf,.docx,.xlsx,.mp4">
 </div>
 
 <div class="mt-4">

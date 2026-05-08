@@ -1,7 +1,8 @@
 <!-- TÍTULO -->
 <div class="mt-2">
     <x-input-label for="title" value="Título del curso" />
-    <x-text-input id="title" name="title" type="text" class="block mt-1 w-full" value="{{ old('title', $course ->title) }}" required/>
+    <x-text-input id="title" name="title" type="text" class="block mt-1 w-full" value="{{ old('title', $course ->title) }}"  required/>
+    <x-input-error :messages="$errors->get('title')" />
 </div>
 
 <!-- DESCRIPCIÓN -->
@@ -10,12 +11,14 @@
     <x-textarea id="description" name="description" rows="4" required>
         {{ old('description', $course->description) }}
     </x-textarea>
+    <x-input-error :messages="$errors->get('description')" />
 </div>
 
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="image" value="Imagen del curso" />
     <x-text-input id="image" name="image" type="file" class="block mt-1 w-full" />
+    <x-input-error :messages="$errors->get('image')" />
 </div>
 
 <!-- STATUS -->
@@ -29,6 +32,7 @@
             </option>
         @endforeach
     </select>
+    <x-input-error :messages="$errors->get('course_status_id')" />
 </div>
 
 <!-- BOTÓN -->
