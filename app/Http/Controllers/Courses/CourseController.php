@@ -61,7 +61,7 @@ class CourseController extends Controller
         }
         /* Crear curso con informacion validada */
         Course::create($data);
-        return to_route('courses.index');
+        return to_route('courses.index')->with('success', 'Curso creado correctamente.');
     }
 
     /**
@@ -99,7 +99,7 @@ class CourseController extends Controller
         }
         /* Actualiza infromacion */
         $course->update($data);
-        return to_route('courses.index');
+        return to_route('courses.index')->with('success', 'Curso actualizado correctamente.');
     }
 
     /**
@@ -108,6 +108,6 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $delete = $course -> delete();
-        return to_route('courses.index', $delete);
+        return to_route('courses.index')->with('success', 'Curso borrado correctamente.');
     }
 }

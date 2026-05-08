@@ -8,6 +8,7 @@
         @else
         {{-- Si hay modulos entonces enlistalos --}}
             <div class="space-y-4">
+                <x-alert-success />
                 @foreach ($modules as $module )
                     <div class="bg-white rounded-xl shadow p-4 flex items-center justify-between">
                     <!-- Título a la izquierda -->

@@ -42,7 +42,7 @@ class ModuleController extends Controller
         $data['course_id'] = $course->id;
         /* COn la data validada se crea el modulo */
         Module::create($data);
-        return to_route('courses.modules.index', compact('course'));
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Módulo creado correctamente.');
     }
 
     /**
@@ -70,7 +70,7 @@ class ModuleController extends Controller
         $data = $request->validated();
         /* Actualizar infromacion */
         $module->update($data);
-        return to_route('courses.modules.index', compact('course'));
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Módulo actualizado correctamente.');
     }
 
     /**
@@ -79,6 +79,6 @@ class ModuleController extends Controller
     public function destroy(Course $course, Module $module)
     {
         $delete = $module -> delete();
-        return to_route('courses.modules.index', compact('course'));
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Módulo eliminado correctamente.');;
     }
 }
