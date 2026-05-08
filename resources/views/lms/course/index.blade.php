@@ -16,11 +16,7 @@
                         <div class="flex justify-center gap-2">
                             <a href="{{ route('courses.show', $course) }}" class="text-blue-500">Ver</a>
                             <a href="{{ route('courses.edit', $course) }}" class="text-yellow-600">Editar</a>
-                            <form action="{{ route('courses.destroy', $course) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600">Borrar</button>
-                            </form>
+                            <x-confirm-delete :route="route('courses.destroy', $course)" :title="'¿Deseas eliminar ' . $course->title . '?'" description="Esta acción no se puede deshacer."/>
                         </div>
                     </x-card> 
                 </div>
