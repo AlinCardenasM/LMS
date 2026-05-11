@@ -11,21 +11,10 @@
                 <x-alert-success />
                 @foreach ($modules as $module )
                     <div class="bg-white rounded-xl shadow p-4 flex items-center justify-between">
-                    <!-- Título a la izquierda -->
-                    <span class="font-medium text-gray-700">
-                        {{ $module->title }}
-                    </span>
-
-                    <!-- Botones juntos a la derecha -->
-                    <div class="flex space-x-2">
-                        <a href="{{ route('courses.modules.edit', [$course,$module]) }}" class="text-blue-600 hover:underline">Editar</a>
-                        <form action="{{ route('courses.modules.destroy', [$course,$module]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600">Borrar</button>
-                        </form>
+                        <p class="font-medium text-gray-700"> {{ $module->title }}</p>
+                        {{-- Menú configuracion de modulos --}}
+                        <x-menus.module-options :course="$course" :module="$module"/>
                     </div>
-                </div>
                 @endforeach
             </div>   
         @endif
