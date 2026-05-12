@@ -12,9 +12,9 @@
         class="absolute bottom-full mb-2 mt-2 w-40 bg-white border rounded shadow-lg"
     >
         <ul class="py-1 text-sm text-gray-700">
-            <li><a href="{{ route('courses.modules.edit', [$course,$module]) }}" class="block px-4 py-2 hover:bg-blue-100">Editar</a></li>
+            <li><a href="{{ route('courses.modules.edit', [$course,$module]) }}" class="block px-4 py-2">Editar</a></li>
             {{-- Alerta eliminar --}}
-            <x-confirm-delete class="block px-4 py-2" :route="route('courses.modules.destroy', [$course,$module])" :title="'¿Deseas eliminar ' . $course->title . '?'" description="Esta acción no se puede deshacer." />
+            <x-confirm-delete class="block px-4 py-2 " :route="route('courses.modules.destroy', [$course,$module])" :title="'¿Deseas eliminar ' . $course->title . '?'" description="Esta acción no se puede deshacer." />
         </ul>
     </div>
 </div>

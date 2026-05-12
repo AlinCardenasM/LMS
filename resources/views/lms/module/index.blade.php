@@ -10,38 +10,32 @@
             <div class="space-y-4">
                 <x-alert-success />
                 @foreach ($modules as $module )
-                    <div class="bg-white rounded-xl shadow p-4 flex items-center justify-between">
-                        <p class="font-medium text-gray-700"> {{ $module->title }}</p>
-                        {{-- Menú configuracion de modulos --}}
-                        <x-menus.dropdown-actions :course="$course" :module="$module"/>
-                    </div>
-                    {{-- Contenidos --}}
-                    <div>
-                        @foreach ($module->contents as $content)
-                            <div class="flex items-center justify-between p-4 border-b">
+                    <div x-data="{ open: false }" class="bg-white rounded-xl shadow">
 
-                            <div class="flex items-center gap-3">
+                        <!-- Header módulo -->
+                        <div class="p-4 flex items-center justify-between">
+                            {{-- Título --}}
+                            <p class="font-medium text-gray-700">
+                                {{ $module->title }}
+                            </p>
 
-                                <div class="bg-gray-100 p-3 rounded-full">
-                                    <ion-icon name="document-text-outline"></ion-icon>
-                                </div>
-
-                                <div>
-                                    <p class="font-medium">
-                                        {{ $content->title }}
-                                    </p>
-
-                                    <p class="text-sm text-gray-500">
-                                        Publicado:
-                                        {{ $content->created_at->format('d M') }}
-                                    </p>
-                                </div>
-
+                            {{-- Acciones --}}
+                            <div class="flex items-center gap-2">
+                                <!-- Botón desplegable -->
+                                <button @click="open = !open" class="text-gray-300 hover:text-gray-500">
+                                    <ion-icon x-bind:name="open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+                                </button>
+                                {{-- Menú configuración --}}
+                                <x-menus.dropdown-actions :course="$course" :module="$module"/>
                             </div>
-
                         </div>
-                            
-                        @endforeach
+
+                        <!-- Contenido desplegable -->
+                        <div x-show="open" x-transition class="border-t bg-slate-50">
+                            @foreach ($module->contents as $content)
+                                <x-sections.content-list :content="$content"/>
+                            @endforeach
+                        </div>
                     </div>
                 @endforeach
             </div>   

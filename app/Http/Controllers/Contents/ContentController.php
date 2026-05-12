@@ -25,7 +25,7 @@ class ContentController extends Controller
      */
     public function create(Course $course)
     {
-        $module = Module::pluck('id', 'title');
+        $module = $course->modules()->pluck('id', 'title');
         $content = new Content();
         return view('lms.content.create', compact('module', 'content', 'course'));
     }
@@ -56,7 +56,7 @@ class ContentController extends Controller
                 ]);
             }
         }
-
+        /* Retorna a vista inicial */
         return to_route('courses.modules.index', $course);
     }
 
