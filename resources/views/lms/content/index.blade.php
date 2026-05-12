@@ -1,7 +1,5 @@
-{{-- <x-app-layout>
+<x-app-layout>
     <div>
-        @foreach ($collection as $item)
-            
-        @endforeach
+        ver
     </div>
-</x-app-layout> --}}
+</x-app-layout>

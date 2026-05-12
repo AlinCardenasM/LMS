@@ -26,14 +26,18 @@
                                     <ion-icon x-bind:name="open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
                                 </button>
                                 {{-- Menú configuración --}}
-                                <x-menus.dropdown-actions :course="$course" :module="$module"/>
+                                <x-menus.dropdown-actions
+                                    :editRoute="route('courses.modules.edit', [$course, $module])"
+                                    :deleteRoute="route('courses.modules.destroy', [$course, $module])"
+                                    :title="'¿Deseas eliminar el módulo ' . $module->title . '?'"
+                                />
                             </div>
                         </div>
 
                         <!-- Contenido desplegable -->
                         <div x-show="open" x-transition class="border-t bg-slate-50">
                             @foreach ($module->contents as $content)
-                                <x-sections.content-list :content="$content"/>
+                                <x-sections.content-list :content="$content" :course="$course"/>
                             @endforeach
                         </div>
                     </div>

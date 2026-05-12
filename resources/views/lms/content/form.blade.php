@@ -1,18 +1,21 @@
 <!-- TÍTULO -->
 <div class="mt-2">
     <x-input-label for="title" value="Título" />
-    <x-text-input id="title" name="title" type="text" class="block mt-1 w-full" required/>
+    <x-text-input id="title" name="title" type="text" class="block mt-1 w-full" value="{{ old('title', $content->title) }}" required/>
     <x-input-error :messages="$errors->get('title')" />
 </div>
 
 <!-- DESCRIPCIÓN -->
 <div class="mt-4">
     <x-input-label for="description" value="Descripción" />
-    <x-textarea id="description" name="description" rows="4" required />
+    <x-textarea id="description" name="description" rows="4" required>
+        {{ old('description', $content->description) }}
+    </x-textarea>
+
     <x-input-error :messages="$errors->get('description')" />
 </div>
 
-<!-- IMAGEN -->
+<!-- Archivos -->
 <div class="mt-4">
     <x-input-label for="file" value="Archivo" />
     <input type="file" name="files[]" multiple>

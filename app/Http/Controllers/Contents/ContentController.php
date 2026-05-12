@@ -63,17 +63,18 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Content $content)
+    public function show(Course $course, Content $content)
     {
-        //
+        return view('lms.content.index', compact(['course', 'content']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Content $content)
+    public function edit(Course $course, Content $content)
     {
-        //
+        $module = $course->modules()->pluck('id', 'title');
+        return view('lms.content.edit', compact(['course', 'content', 'module']));
     }
 
     /**
