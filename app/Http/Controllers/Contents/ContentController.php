@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Content\ContentStoreRequest;
 use App\Http\Requests\Content\ContentUpdateRequest;
 use App\Models\Content;
+use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
 
@@ -22,17 +23,17 @@ class ContentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Course $course)
     {
         $module = Module::pluck('id', 'title');
         $content = new Content();
-        return view('lms.content.create', compact('module', 'content'));
+        return view('lms.content.create', compact('module', 'content', 'course'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ContentStoreRequest $request)
+    public function store(ContentStoreRequest $request, Course $course)
     {
         // Validar datos
         $data = $request->validated();
@@ -55,6 +56,8 @@ class ContentController extends Controller
                 ]);
             }
         }
+
+        return to_route('courses.modules.index', $course);
     }
 
     /**

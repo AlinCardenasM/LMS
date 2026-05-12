@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('courses', CourseController::class);
 Route::resource('courses.modules', ModuleController::class);
-Route::resource('content', ContentController::class);
+Route::resource('courses.contents', ContentController::class);
 Route::resource('assigment', AssigmentController::class);
 
 require __DIR__.'/auth.php';
