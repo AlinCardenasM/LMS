@@ -16,9 +16,18 @@ class ModuleController extends Controller
      */
     public function index(Course $course)
     {
-        /* Obtener modulos relacionados a cursos */
-        $modules = $course->modules;
-        return view('lms.module.index', compact('course', 'modules'));
+        /* Cargar relaciones del modelo*/
+        $course->load([
+            /* carga todos los módulos del curso y, dentro de cada módulo, sus contenidos*/
+            'modules.contents',
+            /* carga todos los módulos del curso y, dentro de cada módulo, sus asignaciones */
+            'modules.assignments'
+        ]);
+
+        return view('lms.module.index', [
+            'course' => $course,
+            'modules' => $course->modules
+        ]);
     }
 
     /**

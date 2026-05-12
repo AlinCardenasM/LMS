@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Contents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Content\ContentStoreRequest;
+use App\Http\Requests\Content\ContentUpdateRequest;
+use App\Models\Content;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -20,21 +24,43 @@ class ContentController extends Controller
      */
     public function create()
     {
-        //
+        $module = Module::pluck('id', 'title');
+        $content = new Content();
+        return view('lms.content.create', compact('module', 'content'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ContentStoreRequest $request)
     {
-        //
+        // Validar datos
+        $data = $request->validated();
+
+        // Crear el contenido primero
+        $content = Content::create($data);
+
+        // Verificar si hay archivos
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $path = $file->store('contents', 'public');
+
+                $content->files()->create([
+                    'original_name' => $file->getClientOriginalName(),
+                    'stored_name'   => basename($path),
+                    'path'          => $path,
+                    'mime_type'     => $file->getMimeType(),
+                    'size'          => $file->getSize(),
+                    'order'         => $index,
+                ]);
+            }
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Content $content)
     {
         //
     }
@@ -42,7 +68,7 @@ class ContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Content $content)
     {
         //
     }
@@ -50,7 +76,7 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ContentUpdateRequest $request, Content $content)
     {
         //
     }
@@ -58,7 +84,7 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Content $content)
     {
         //
     }

@@ -25,7 +25,7 @@ class ContentStoreRequest extends FormRequest
         return [
             'title' => 'required|max:50',
             'description' => 'max:500',
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx,zip|max:10240',
+            'file' => ['nullable', 'array', 'mimes:pdf,doc,docx,png,jpg,jpeg,xlsx,zip'],
             'module_id' => 'required',
         ];
     }

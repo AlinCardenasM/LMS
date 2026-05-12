@@ -11,12 +11,16 @@ class Content extends Model
     protected $fillable = [
         'title',
         'description',
-        'file',
         'module_id'
     ];
 
     public function module()
     {
         return $this->belongsTo(Module::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(ContentFile::class);
     }
 }

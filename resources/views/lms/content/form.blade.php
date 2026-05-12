@@ -13,17 +13,18 @@
 <!-- IMAGEN -->
 <div class="mt-4">
     <x-input-label for="file" value="Archivo" />
-    <input type="file" name="files[]" multiple accept=".jpg,.jpeg,.png,.pdf,.docx,.xlsx,.mp4">
+    <input type="file" name="files[]" multiple>
 </div>
 
 <div class="mt-4">
-    <x-input-label for="module_id" value="Módulo" />
-
+    <x-input-label for="module_id" value="Selecciona a que sección pertenece" />
     <select name="module_id" id="module_id" class="block mt-1 w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-white">
-        @foreach ($module as $id => $title)
-            <option value="{{ $id }}" {{ old('module_id', $content->module_id ?? '') == $id ? 'selected' : '' }}> {{ $title }} </option>
+        @foreach ($module as $title => $id)
+            <option value="{{ $id }}" {{ old('module_id', $content->module_id ?? '') == $id ? 'selected' : '' }}> {{ $title }}
+            </option>
         @endforeach
     </select>
+    <x-input-error :messages="$errors->get('module_id')" />
 </div>
 
 <!-- BOTÓN -->
