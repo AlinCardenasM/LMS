@@ -10,11 +10,21 @@
     <div class="py-2">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6">
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('courses.contents.update',[$course, $content]) }}" enctype="multipart/form-data">
+                    @method('PATCH')
                     @csrf
                     @include('lms.content.form')
+
+                    <!-- BOTÓN -->
+                    <div class="mt-6 flex justify-end">
+                        <x-primary-button>
+                            Actualizar
+                        </x-primary-button>
+                    </div>  
                 </form>
             </div>
         </div>
     </div>
+
+    
 </x-app-layout>

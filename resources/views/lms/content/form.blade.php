@@ -33,9 +33,3 @@
     <x-input-error :messages="$errors->get('module_id')" />
 </div>
 
-<!-- BOTÓN -->
-<div class="mt-6 flex justify-end">
-    <x-primary-button>
-        Crear material
-    </x-primary-button>
-</div>

@@ -13,6 +13,13 @@
                 <form method="POST" action="{{  route('courses.contents.store', $course) }}" enctype="multipart/form-data">
                     @csrf
                     @include('lms.content.form')
+
+                    <!-- BOTÓN -->
+                    <div class="mt-6 flex justify-end">
+                        <x-primary-button>
+                            Crear
+                        </x-primary-button>
+                    </div>  
                 </form>
             </div>
         </div>

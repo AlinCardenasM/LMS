@@ -80,9 +80,26 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ContentUpdateRequest $request, Content $content)
+    public function update(ContentUpdateRequest $request, Course $course, Content $content)
     {
-        //
+        $data = $request->validated();
+        $content -> update($data);
+
+        if($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $path = $file->store('content', 'public/contents');
+                $content->files()->create([
+                    'original_name' => $file->getClientOriginalName(),
+                    'stored_name'   => basename($path),
+                    'path'          => $path,
+                    'mime_type'     => $file->getMimeType(),
+                    'size'          => $file->getSize(),
+                    'order'         => $index,
+                ]);
+            }
+        }
+
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Contenido actualizado correctamente');
     }
 
     /**
