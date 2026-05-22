@@ -38,6 +38,7 @@
                         <div x-show="open" x-transition class="border-t bg-slate-50">
                             @foreach ($module->contents as $content)
                                 <x-sections.content-list :content="$content" :course="$course"/>
+                                
                             @endforeach
                         </div>
                     </div>

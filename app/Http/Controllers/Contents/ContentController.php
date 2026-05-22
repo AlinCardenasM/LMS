@@ -17,7 +17,7 @@ class ContentController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -65,7 +65,8 @@ class ContentController extends Controller
      */
     public function show(Course $course, Content $content)
     {
-        return view('lms.content.index', compact(['course', 'content']));
+        $content->load('files');
+        return view('lms.content.show', compact(['course', 'content']));
     }
 
     /**
@@ -105,8 +106,10 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Content $content)
+    public function destroy(ContentUpdateRequest $request, Course $course, Content $content)
     {
-        //
+        dd('hola');
+        $delete = $course -> delete();
+        return to_route('courses.modules.index', $course)->with('success', 'El Contenido se elimino de forma correcta');
     }
 }

@@ -10,10 +10,7 @@
         </div>
 
         <div>
-
-            <p class="font-medium">
-                {{ $content->title }}
-            </p>
+            <a href="{{ route('courses.contents.show', [$course, $content]) }}">{{ $content->title }}</a>
 
             <p class="text-sm text-gray-500">
                 Publicado:
@@ -26,13 +23,11 @@
 
     {{-- Menú derecha --}}
     <div>
-
         <x-menus.dropdown-actions
             :editRoute="route('courses.contents.edit', [$course, $content])"
             :deleteRoute="route('courses.contents.destroy', [$course, $content])"
             :title="'¿Deseas eliminar  ' . $content->title . '?'"
         />
-
     </div>
 
 </div>
