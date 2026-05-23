@@ -6,19 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssignmentFile extends Model
 {
-     protected $fillable = ['title', 'description', 'due_date', 'max_score', 'module_id'];
+    protected $fillable = ['original_name', 'stored_name', 'path', 'mime_type', 'size', 'order'];
 
     protected $casts = [
         'due_date' => 'date',
     ];
 
-    public function module()
+    public function assignment()
     {
-        return $this->belongsTo(Module::class);
-    }
-
-    public function files()
-    {
-        return $this->hasMany(AssignmentFile::class);
+        return $this->belongsTo(Assignment::class);
     }
 }

@@ -16,7 +16,7 @@
         x-transition
         class="absolute mt-2 w-48 bg-white rounded-xl shadow-lg z-50">
 
-        <a href="{{ route('assigment.create') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+        <a href="{{ route('courses.assignments.create', $course )}}" class="block px-4 py-2 text-sm hover:bg-gray-100">
             Tarea
         </a>
 

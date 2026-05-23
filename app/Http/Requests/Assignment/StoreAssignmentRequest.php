@@ -25,8 +25,6 @@ class StoreAssignmentRequest extends FormRequest
         return [
             'title' => 'required|max:50',
             'description' => 'max:500',
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx,zip|max:10240',
-            'code' => 'min:5|max:7|required|unique',
             'due_date' => 'required|date',
             'max_score' => 'required|numeric|min:0',
             'module_id' => 'required',

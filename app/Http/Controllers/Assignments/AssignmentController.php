@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Http\Controllers\Assignments;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Assignment\StoreAssignmentRequest;
+use App\Models\Assignment;
+use App\Models\Content;
+use App\Models\Course;
+use Illuminate\Http\Request;
+
+class AssignmentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Course $course)
+    {
+        $module = $course->modules()->pluck('id', 'title');
+        $assignment = new Assignment();
+        return view('lms.assigment.create', compact('module', 'assignment', 'course'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreAssignmentRequest $request, Course $course)
+    {
+        // Validar datos
+        $data = $request->validated();
+
+        // Crear el contenido primero
+        $assignment = Content::create($data);
+
+        // Verificar si hay archivos
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $path = $file->store('assignment', 'public');
+
+                $assignment->files()->create([
+                    'original_name' => $file->getClientOriginalName(),
+                    'stored_name'   => basename($path),
+                    'path'          => $path,
+                    'mime_type'     => $file->getMimeType(),
+                    'size'          => $file->getSize(),
+                    'order'         => $index,
+                ]);
+            }
+        }
+        /* Retorna a vista inicial */
+        return to_route('courses.modules.index', $course);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

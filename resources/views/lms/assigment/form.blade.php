@@ -15,7 +15,7 @@
 <!-- ARCHIVO -->
 <div class="mt-4">
     <x-input-label for="file" value="Archivo" />
-    <x-text-input id="file" name="file" type="file" class="block mt-1 w-full" />
+    <input type="file" name="files[]" multiple>
     <x-input-error :messages="$errors->get('file')" />
 </div>
 
@@ -33,7 +33,15 @@
     <x-input-error :messages="$errors->get('max_score')" />
 </div>
 
-<!-- BOTÓN -->
-<div class="mt-6 flex justify-end">
-    <x-primary-button>Guardar tarea</x-primary-button>
+{{-- Modulo --}}
+<div class="mt-4">
+    <x-input-label for="module_id" value="Selecciona a que sección pertenece" />
+    <select name="module_id" id="module_id" class="block mt-1 w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-white">
+        @foreach ($module as $title => $id)
+            <option value="{{ $id }}" {{ old('module_id', $assignment->module_id ?? '') == $id ? 'selected' : '' }}> {{ $title }}
+            </option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('module_id')" />
 </div>
+

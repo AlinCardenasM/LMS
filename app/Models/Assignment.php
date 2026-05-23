@@ -12,7 +12,6 @@ class Assignment extends Model
     protected $fillable = [
         'title',
         'description',
-        'file',
         'due_date',
         'max_score',
         'module_id',
@@ -21,5 +20,10 @@ class Assignment extends Model
     public function module()
     {
         return $this->belongsTo(Module::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(AssignmentFile::class);
     }
 }
