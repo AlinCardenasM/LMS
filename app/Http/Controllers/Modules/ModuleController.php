@@ -24,6 +24,15 @@ class ModuleController extends Controller
             'modules.assignments'
         ]);
 
+        // Mapear tipo a cada elemento y combinar por módulo
+        $course->modules->each(function ($module) {
+            $contents = $module->contents->map(fn($item) => $item->setAttribute('type', 'content'));
+            $assignments = $module->assignments->map(fn($item) => $item->setAttribute('type', 'assignment'));
+
+            // Colección combinada y ordenada por fecha de creación
+            $module->items = $contents->merge($assignments)->sortBy('created_at')->values();
+        });
+
         return view('lms.module.index', [
             'course' => $course,
             'modules' => $course->modules

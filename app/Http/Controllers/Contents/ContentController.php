@@ -106,10 +106,9 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContentUpdateRequest $request, Course $course, Content $content)
+    public function destroy(Course $course, Content $content)
     {
-        dd('hola');
-        $delete = $course -> delete();
-        return to_route('courses.modules.index', $course)->with('success', 'El Contenido se elimino de forma correcta');
+        $delete = $content -> delete();
+        return to_route('courses.modules.index', $course)->with('success', 'El contenido se elimino de forma correcta');
     }
 }

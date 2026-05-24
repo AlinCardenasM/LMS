@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Assignments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Assignment\StoreAssignmentRequest;
+use App\Http\Requests\Assignment\UpdateAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\Content;
 use App\Models\Course;
@@ -38,7 +39,7 @@ class AssignmentController extends Controller
         $data = $request->validated();
 
         // Crear el contenido primero
-        $assignment = Content::create($data);
+        $assignment = Assignment::create($data);
 
         // Verificar si hay archivos
         if ($request->hasFile('files')) {
@@ -62,7 +63,7 @@ class AssignmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course, Assignment $assignment)
     {
 
     }
@@ -70,24 +71,45 @@ class AssignmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course,Assignment $assignment)
     {
-        //
+        $module = $course->modules()->pluck('id', 'title');
+        return view('lms.assigment.edit', compact('course', 'assignment', 'module'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAssignmentRequest $request,Course $course, Assignment $assignment)
     {
-        //
+        $data=$request->validated();
+        $assignment->update($data);
+        // Verificar si hay archivos
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $path = $file->store('assignment', 'public');
+
+                $assignment->files()->create([
+                    'original_name' => $file->getClientOriginalName(),
+                    'stored_name'   => basename($path),
+                    'path'          => $path,
+                    'mime_type'     => $file->getMimeType(),
+                    'size'          => $file->getSize(),
+                    'order'         => $index,
+                ]);
+            }
+        }
+
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Tarea actualizada correctamente');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Course $course, Assignment $assignment)
     {
-        //
+        $delete = $assignment -> delete();
+        return to_route('courses.modules.index', compact('course'))->with('success', 'Tarea eliminado correctamente.');;
     }
 }
