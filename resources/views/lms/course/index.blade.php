@@ -13,11 +13,9 @@
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($courses as $course)
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code"> 
-                        <div class="flex justify-center gap-2">
-                            <a href="{{ route('courses.show', $course) }}" class="text-blue-500">Ver</a>
-                            <a href="{{ route('courses.edit', $course) }}" class="text-yellow-600">Editar</a>
-                            <x-confirm-delete :route="route('courses.destroy', $course)" :title="'¿Deseas eliminar ' . $course->title . '?'" description="Esta acción no se puede deshacer."/>
+                    <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code" :course="$course->id"> 
+                        <div class="flex justify-end gap-2">
+                            <x-menus.dropdown-actions :editRoute="route('courses.edit', $course)" :deleteRoute="'courses.destroy', $course" :title="'¿Deseas eliminar '.$course->title.'?'" />
                         </div>
                     </x-card> 
                 </div>

@@ -1,131 +1,168 @@
 <x-app-layout>
-    {{--  --}}
-    <div class="min-h-screen bg-[#f5f5f5]">
-        {{-- Contenedor principal --}}
-        <div class="max-w-5xl mx-auto pt-8">
-            
-            {{-- Card blanca --}}
-            <div class="bg-white rounded-lg shadow-md p-8">
-                
-                {{-- Header --}}
-                <div class="flex items-start justify-between border-b pb-6">
 
-                    <div class="flex items-start gap-4">
-                        {{-- Icono --}}
-                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                            <ion-icon
-                                name="clipboard-outline"
-                                class="text-2xl text-gray-700">
-                            </ion-icon>
-                        </div>
-                        {{-- Información --}}
-                        <div>
-                            <h1 class="text-5xl font-normal text-gray-800">
-                                {{ $assignment->title }}
-                            </h1>
-                            <div class="flex items-center gap-2 mt-2 text-gray-600">
-                                <span class="font-medium">Alin Cárdenas</span>
-                                <span>•</span>
-                                <span>18:55</span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    
-                    {{-- Menú --}}
-                    <button
-                        class="text-gray-600 hover:bg-gray-200 rounded-full p-2 transition">
-                        <ion-icon
-                            name="ellipsis-vertical"
-                            class="text-2xl">
-                        </ion-icon>
-                    </button>
-                </div>
-                <div>
-                    <p class="mt-2 text-gray-600">
-                        {{ $assignment->description }}
-                    </p>
-                </div>
-                <div class="max-w-4xl mx-auto py-6">
-                    @foreach($assignment->files as $file)
+<div class="max-w-7xl mx-auto py-8 px-6">
 
-            <a
-                href="{{ Storage::url($file->path) }}"
-                target="_blank"
-                class="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50 transition"
-            >
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-                {{-- PDF --}}
-                @if($file->mime_type === 'application/pdf')
+        {{-- PANEL IZQUIERDO --}}
+        <div class="lg:col-span-3 bg-white">
 
-                    <div class="w-10 h-10 flex items-center justify-center bg-red-100 rounded-lg">
-                        📄
+            {{-- Header --}}
+            <div class="flex justify-between items-start">
+
+                <div class="flex gap-4">
+
+                    <div class="bg-purple-100 text-purple-600 p-4 rounded-full h-fit">
+                        <ion-icon name="clipboard-outline" class="text-2xl"></ion-icon>
                     </div>
 
-                {{-- Imagen --}}
-                @elseif(Str::startsWith($file->mime_type, 'image/'))
+                    <div>
 
-                    <div class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg">
-                        🖼️
+                        <h1 class="text-4xl font-normal">
+                            {{ $assignment -> title }}
+                        </h1>
+
+                        <p class="text-gray-600 mt-2">
+                            <span class="text-gray-500">
+                                Última modificación: 
+                                {{ $assignment -> created_at->format('d M') }}
+                                
+                            </span>
+                        </p>
                     </div>
-
-                {{-- Video --}}
-                @elseif(Str::startsWith($file->mime_type, 'video/'))
-
-                    <div class="w-10 h-10 flex items-center justify-center bg-purple-100 rounded-lg">
-                        🎥
-                    </div>
-
-                {{-- Word --}}
-                @elseif(
-                    $file->mime_type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                )
-
-                    <div class="w-10 h-10 flex items-center justify-center bg-blue-200 rounded-lg">
-                        📘
-                    </div>
-
-                {{-- Excel --}}
-                @elseif(
-                    $file->mime_type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                )
-
-                    <div class="w-10 h-10 flex items-center justify-center bg-green-100 rounded-lg">
-                        📊
-                    </div>
-
-                {{-- Otros --}}
-                @else
-
-                    <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-lg">
-                        📁
-                    </div>
-
-                @endif
-
-                <div class="flex-1">
-
-                    <p class="font-medium text-gray-800">
-                        {{ $file->original_name }}
-                    </p>
-
-                    <p class="text-sm text-gray-500">
-                        {{ number_format($file->size / 1024, 2) }} KB
-                    </p>
-
                 </div>
 
-                <div class="text-gray-400">
-                    ↗
-                </div>
+                <button class="text-gray-500 text-2xl">
+                    <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
 
-            </a>
-
-        @endforeach
-                </div>
             </div>
+
+            <div class="mt-6 flex justify-between items-center">
+
+                {{-- <p class="text-xl font-medium">
+                    100/100
+                </p> --}}
+
+                {{-- <p class="font-medium">
+                    Fecha de entrega: 
+                    {{ $assignment -> \Carbon\Carbon::parse($assignment->due_date)->format('d M')  }}
+                    9 dic 2025, 23:59
+                </p> --}}
+
+            </div>
+
+            <hr class="my-6">
+
+            {{-- Descripción --}}
+            <div class="space-y-4 text-gray-800 leading-relaxed">
+                <p>
+                    {{ $assignment -> description }}
+                </p>
+            </div>
+
+            {{-- Recurso --}}
+            {{-- <div class="mt-8 border rounded-xl overflow-hidden w-fit">
+
+                <div class="flex">
+
+                    <div class="p-4 w-[320px]">
+
+                        <a href="#" class="font-semibold underline">
+                            Kaggle: The World's AI Proving Ground
+                        </a>
+
+                        <p class="text-gray-500 text-sm mt-2">
+                            https://www.kaggle.com/
+                        </p>
+
+                    </div>
+
+                    <img
+                        src="https://placehold.co/150x90"
+                        class="w-[150px] object-cover border-l"
+                    >
+
+                </div>
+
+            </div> --}}
+
         </div>
+
+
+        {{-- PANEL DERECHO --}}
+        <div>
+
+            <div class="border rounded-2xl shadow-sm p-6">
+
+                <div class="flex justify-between mb-6">
+
+                    <h2 class="text-2xl font-medium">
+                        Tu trabajo
+                    </h2>
+
+                    <p class="font-medium">
+                        Calificado
+                    </p>
+
+                </div>
+
+                {{-- Archivo --}}
+                <div class="border rounded-xl flex items-center overflow-hidden">
+
+                    <div class="flex-1 p-4">
+
+                        <a href="#" class="underline font-medium">
+                            Proyecto final.pdf
+                        </a>
+
+                        <p class="text-gray-500 text-sm">
+                            PDF
+                        </p>
+
+                    </div>
+
+                    <div class="border-l p-2">
+                        <img
+                            src="https://placehold.co/80x80"
+                            class="w-20"
+                        >
+                    </div>
+
+                    <button class="px-4 text-gray-500 text-xl">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+
+                </div>
+
+                {{-- Botón --}}
+                <button
+                    class="w-full mt-6 border rounded-full py-3 font-medium text-blue-600 hover:bg-blue-50 transition">
+
+                    + Añadir o crear
+
+                </button>
+
+                {{-- Disabled --}}
+                <button
+                    disabled
+                    class="w-full mt-4 py-4 rounded-full bg-gray-200 text-gray-500">
+
+                    Volver a entregar
+
+                </button>
+
+                <p class="text-sm text-gray-500 text-center mt-6 italic">
+                    No se pueden entregar trabajos después
+                    de la fecha de entrega
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
-    {{--  --}}
+
+</div>
 
 </x-app-layout>

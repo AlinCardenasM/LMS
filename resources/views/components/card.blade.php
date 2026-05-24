@@ -1,4 +1,4 @@
-@props(['image', 'title', 'description', 'access_code'])
+@props(['image', 'title', 'description', 'access_code', 'course'])
 
 <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden hover:shadow-lg transition h-full flex flex-col ">
     
@@ -8,7 +8,7 @@
     <!-- Contenido -->
     <div class="p-4 flex flex-col flex-1">
         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-            {{ $title }}
+            <a href="{{ route('courses.show', $course) }}">{{ $title }}</a>
         </h3>
 
         <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 flex-1">

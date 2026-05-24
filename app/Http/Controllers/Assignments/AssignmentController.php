@@ -65,7 +65,7 @@ class AssignmentController extends Controller
      */
     public function show(Course $course, Assignment $assignment)
     {
-
+        return view('lms.assigment.show', compact('assignment'));
     }
 
     /**

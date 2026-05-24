@@ -24,7 +24,9 @@
 <!-- FECHA -->
 <div class="mt-4">
     <x-input-label for="due_date" value="Fecha de entrega" />
-    <x-text-input id="due_date" name="due_date" type="date"  class="block mt-1 w-full"  />
+    <x-text-input id="due_date" name="due_date" type="date" class="block mt-1 w-full"
+        value="{{ old('due_date', $assignment->due_date ? \Carbon\Carbon::parse($assignment->due_date)->format('Y-m-d') : '') }}"
+    />
     <x-input-error :messages="$errors->get('due_date')" />
 </div>
 
