@@ -1,7 +1,9 @@
+@props(['assignment', 'course'])
+
 <div>
 
     <button class="w-full mt-6 border rounded-full py-3 font-medium bg-blue-600 text-white hover:bg-blue-500 transition">
-        <a href=""> + Añadir o crear</a>
+        <a href="{{ route('courses.assignments.submissions.create', [$course, $assignment]) }}">+ Añadir o crear</a>
     </button>
 
     <button

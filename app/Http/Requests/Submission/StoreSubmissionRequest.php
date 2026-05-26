@@ -23,11 +23,28 @@ class StoreSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx,zip|max:10240',
             'comment' => 'nullable|string|max:1000',
             'status' => 'max:500',
-            'assigment_id' => 'required',
-            'user_id' => 'required',
+            'files' => 'nullable|array',
+            'files.*' => 'file|max:10240',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            $hasComment = filled($this->comment);
+
+            $hasFiles = $this->hasFile('files');
+
+            if (! $hasComment && ! $hasFiles) {
+
+                $validator->errors()->add(
+                    'submission',
+                    'Debes agregar un comentario o subir al menos un archivo.'
+                );
+            }
+        });
     }
 }

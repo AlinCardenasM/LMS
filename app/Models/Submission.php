@@ -10,7 +10,6 @@ class Submission extends Model
     use HasFactory;
 
     protected $fillable =[
-        'file',
         'comment',
         'status',
         'assignment_id',
@@ -43,5 +42,10 @@ class Submission extends Model
     public function grade()
     {
         return $this->hasOne(Grade::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(SubmissionFile::class);
     }
 }

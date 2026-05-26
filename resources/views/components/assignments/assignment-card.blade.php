@@ -1,5 +1,8 @@
 @props([
-    'status' => 'Calificado'
+    'status' => 'Calificado',
+    'assignment',
+    'course'
+
 ])
 
 <div class="border bg-white rounded-2xl shadow-sm p-6">
@@ -11,6 +14,6 @@
 
     {{-- <x-assignments.assignment-file-preview /> --}}
 
-    <x-assignments.assignment-action-buttons />
+    <x-assignments.assignment-action-buttons :assignment="$assignment" :course="$course"/>
 
 </div>

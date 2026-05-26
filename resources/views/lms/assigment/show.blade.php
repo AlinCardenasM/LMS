@@ -3,7 +3,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8">
             <x-assignments.assignment-principal-card :assignment="$assignment" />
             {{-- PANEL DERECHO --}}
-            <x-assignments.assignment-card />
+            <x-assignments.assignment-card :assignment="$assignment" :course="$course"  />
+            
         </div>
     </div>
 </x-app-layout>

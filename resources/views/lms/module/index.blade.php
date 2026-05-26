@@ -11,14 +11,12 @@
                 <x-alert-success />
                 @foreach ($modules as $module )
                     <div x-data="{ open: false }" class="bg-white rounded-xl shadow">
-
                         <!-- Header módulo -->
                         <div class="p-4 flex items-center justify-between">
                             {{-- Título --}}
                             <p class="font-medium text-gray-700">
                                 {{ $module->title }}
                             </p>
-
                             {{-- Acciones --}}
                             <div class="flex items-center gap-2">
                                 <!-- Botón desplegable -->
