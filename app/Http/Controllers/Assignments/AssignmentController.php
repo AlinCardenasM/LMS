@@ -8,6 +8,7 @@ use App\Http\Requests\Assignment\UpdateAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\Content;
 use App\Models\Course;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
@@ -65,7 +66,11 @@ class AssignmentController extends Controller
      */
     public function show(Course $course, Assignment $assignment)
     {
-        return view('lms.assigment.show', compact('assignment', 'course'));
+        $submission = Submission::where('assignment_id', $assignment->id)
+                    ->where('user_id', auth()->id())
+                    ->with('files')
+                    ->first();
+        return view('lms.assigment.show', compact('assignment', 'course', 'submission'));
     }
 
     /**
@@ -101,7 +106,6 @@ class AssignmentController extends Controller
         }
 
         return to_route('courses.modules.index', compact('course'))->with('success', 'Tarea actualizada correctamente');
-
     }
 
     /**

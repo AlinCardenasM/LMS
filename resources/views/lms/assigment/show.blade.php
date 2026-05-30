@@ -3,8 +3,11 @@
         <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8">
             <x-assignments.assignment-principal-card :assignment="$assignment" />
             {{-- PANEL DERECHO --}}
-            <x-assignments.assignment-card :assignment="$assignment" :course="$course"  />
-            
+            @if ($submission?->files)
+                <x-assignments.assignment-card-update :assignment="$assignment" :course="$course"        :submission="$submission"/>
+            @else
+                <x-assignments.assignment-card-create :assignment="$assignment" :course="$course"       :submission="$submission"/>
+            @endif
         </div>
     </div>
 </x-app-layout>

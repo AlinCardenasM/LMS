@@ -63,9 +63,9 @@ class SubmissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+       /*  return view('lms.assigment.show', compact('course', 'submission')); */
     }
 
     /**
@@ -73,7 +73,7 @@ class SubmissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('lms.submissions.edit');
     }
 
     /**
