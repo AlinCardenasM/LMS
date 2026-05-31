@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Submissions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Submission\StoreSubmissionRequest;
+use App\Http\Requests\Submission\UpdateSubmissionRequest;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubmissionController extends Controller
 {
@@ -71,17 +73,56 @@ class SubmissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course,  Assignment $assignment,Submission $submission)
     {
-        return view('lms.submissions.edit');
+        return view('lms.submissions.edit', compact('submission', 'course', 'assignment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateSubmissionRequest $request, Course $course,  Assignment $assignment,Submission $submission)
     {
-        //
+        if($request->filled('delete_files')){
+
+            $files = $submission->files()
+                ->whereIn('id', $request->delete_files)
+                ->get();
+
+            foreach($files as $file){
+
+                Storage::disk('public')
+                    ->delete($file->path);
+
+                $file->delete();
+            }
+        }
+
+         // Validar datos
+        $data = $request->validated();
+        $data['assignment_id'] = $assignment->id;
+        $data['user_id'] = auth()->id();
+
+        // Crear el contenido primero
+        $submission->update($data);
+
+        // Verificar si hay archivos
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $path = $file->store('submission', 'public');
+
+                $submission->files()->create([
+                    'original_name' => $file->getClientOriginalName(),
+                    'stored_name'   => basename($path),
+                    'path'          => $path,
+                    'mime_type'     => $file->getMimeType(),
+                    'size'          => $file->getSize(),
+                    'order'         => $index,
+                ]);
+            }
+        }
+        /* Retorna a vista inicial */
+        return to_route('courses.assignments.show', compact('course', 'assignment'));
     }
 
     /**

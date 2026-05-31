@@ -22,12 +22,60 @@ class UpdateSubmissionRequest extends FormRequest
      */
     public function rules(): array
     {
+        /* dd('aqui estoy'); */
         return [
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx,zip|max:10240',
             'comment' => 'nullable|string|max:1000',
             'status' => 'max:500',
-            'assigment_id' => 'required',
-            'user_id' => 'required',
+            'files' => 'nullable|array',
+            'files.*' => 'file|max:10240',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            $submission = $this->route('submission');
+
+            $hasComment = filled($this->comment);
+
+            $hasNewFiles = $this->hasFile('files');
+
+            /*
+            archivos actualmente guardados
+            */
+
+            $existingFilesCount =
+                $submission->files()->count();
+
+            /*
+            archivos marcados para eliminar
+            */
+
+            $deletedFilesCount =
+                count($this->delete_files ?? []);
+
+            /*
+            archivos que quedarán después del update
+            */
+
+            $remainingFiles =
+                $existingFilesCount - $deletedFilesCount;
+
+            $hasRemainingFiles =
+                $remainingFiles > 0;
+
+            if (
+                ! $hasComment
+                && ! $hasNewFiles
+                && ! $hasRemainingFiles
+            ) {
+
+                $validator->errors()->add(
+                    'submission',
+                    'Debes agregar un comentario o mantener/subir al menos un archivo.'
+                );
+            }
+        });
     }
 }

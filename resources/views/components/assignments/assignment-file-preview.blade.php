@@ -1,6 +1,5 @@
 @props([
     'name',
-    'type',
     'url'
 ])
 
@@ -11,11 +10,5 @@
             {{ $name }}
         </a>
     </div>
-
-    <button class="px-4 text-gray-500 text-xl">
-
-        <ion-icon name="close-outline"></ion-icon>
-
-    </button>
 
 </div>
