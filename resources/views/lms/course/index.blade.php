@@ -15,7 +15,17 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code" :course="$course->id"> 
                         <div class="flex justify-end gap-2">
-                            <x-menus.dropdown-actions :editRoute="route('courses.edit', $course)" :deleteRoute="'courses.destroy', $course" :title="'¿Deseas eliminar '.$course->title.'?'" />
+                            <a href="{{ route('courses.edit', $course) }}" class="text-blue-700">Editar</a>
+
+                            <form action="{{ route('courses.destroy',$course) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="text-red-700">
+                                    Eliminar
+                                </button>
+                            </form>
+                            
                         </div>
                     </x-card> 
                 </div>
