@@ -4,7 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Cursos') }}
             </h2>
-            <a href="{{ route('courses.create') }}" class="text-blue-500">Crear</a>
+            @if (auth()->user()->role==="profesor")
+                <a href="{{ route('courses.create') }}" class="text-blue-500">Crear</a>
+            @endif
         </div>
     </x-slot>
 
@@ -15,17 +17,16 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <x-card image="{{ $course->image }}" :title="$course->title" :description="$course->description" :access_code="$course->access_code" :course="$course->id"> 
                         <div class="flex justify-end gap-2">
-                            <a href="{{ route('courses.edit', $course) }}" class="text-blue-700">Editar</a>
-
-                            <form action="{{ route('courses.destroy',$course) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="text-red-700">
-                                    Eliminar
-                                </button>
-                            </form>
-                            
+                            @if (auth()->user()->role === 'profesor')
+                                <a href="{{ route('courses.edit', $course) }}" class="text-blue-700">Editar</a>
+                                <form action="{{ route('courses.destroy',$course) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-700">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </x-card> 
                 </div>

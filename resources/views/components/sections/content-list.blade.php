@@ -24,8 +24,9 @@
 
     {{-- Información izquierda --}}
     <div class="flex items-center gap-3">
-
-        <div class="bg-gray-100 p-3 rounded-full"> <ion-icon name="{{ $icon }}"></ion-icon> </div>
+        <div class="bg-gray-100 p-3 rounded-full"> 
+            <ion-icon name="{{ $icon }}"></ion-icon> 
+        </div>
 
         <div>
             <a href="{{ $showRoute }}"> {{ $item->title }} </a>
@@ -34,10 +35,13 @@
                 {{ $item->created_at->format('d M') }}
             </p>
         </div>
-
     </div>
 
     {{-- Menú derecha --}}
-    <div> <x-menus.dropdown-actions :editRoute="$editRoute" :deleteRoute="$deleteRoute" :title="'¿Deseas eliminar '.$item->title.'?'" /> </div>
+    @if (auth()->user()->role === 'profesor')
+        <div> 
+            <x-menus.dropdown-actions :editRoute="$editRoute" :deleteRoute="$deleteRoute" :title="'¿Deseas eliminar '.$item->title.'?'" /> 
+        </div>
+    @endif
 
 </div>

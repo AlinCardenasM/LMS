@@ -1,7 +1,9 @@
 <x-app-layout>
     <x-nav-classroom :course="$course->id"/>
     <div class="max-w-5xl mx-auto mt-6">
-        <x-create-menu :course="$course->id"/>
+        @if (auth()->user()->role === 'profesor')
+            <x-create-menu :course="$course->id"/>
+        @endif
         {{-- Validacion si valiable modulo esta vacia colocar Componente --}}
         @if ($modules->isEmpty())
             <x-empy-state/>
@@ -24,11 +26,13 @@
                                     <ion-icon x-bind:name="open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
                                 </button>
                                 {{-- Menú configuración --}}
-                                <x-menus.dropdown-actions
-                                    :editRoute="route('courses.modules.edit', [$course, $module])"
-                                    :deleteRoute="route('courses.modules.destroy', [$course, $module])"
-                                    :title="'¿Deseas eliminar el módulo ' . $module->title . '?'"
-                                />
+                                @if (auth()->user()->role === "profesor")
+                                    <x-menus.dropdown-actions
+                                        :editRoute="route('courses.modules.edit', [$course, $module])"
+                                        :deleteRoute="route('courses.modules.destroy', [$course, $module])"
+                                        :title="'¿Deseas eliminar el módulo ' . $module->title . '?'"
+                                    />
+                                @endif
                             </div>
                         </div>
 
