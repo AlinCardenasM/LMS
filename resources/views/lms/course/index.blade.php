@@ -6,11 +6,16 @@
             </h2>
             @if (auth()->user()->role==="profesor")
                 <a href="{{ route('courses.create') }}" class="text-blue-500">Crear</a>
+            @else
+                <a href="{{ route('enrollments.create') }}" class="text-blue-500">Unirme a curso</a>
             @endif
         </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if ($courses->isEmpty())
+            <x-empy-state-courses/>
+        @endif
         <x-alert-success />
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($courses as $course)
