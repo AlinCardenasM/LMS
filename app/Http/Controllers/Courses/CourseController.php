@@ -16,8 +16,14 @@ class CourseController extends Controller
      */
     public function index()
     {
-        /* Obtener cursos y se envien paginados a la vista */
-        $courses = Course::paginate(10);
+        /* obtiene alusuario autenticado */
+        $user = auth()->user();
+        /* hace la validacion para filtrar */
+        if ($user->role_id == 1 ) {
+            $courses = Course::where('user_id', $user->id)->paginate(10);
+        } else {
+            $courses = $user->courses()->paginate(10);
+        }
         return view('lms.course.index', compact('courses'));
     }
 
@@ -40,6 +46,7 @@ class CourseController extends Controller
     {
         /* Aqui se obtienen los datos validados */
         $data = $request->validated();
+        $data['user_id'] = auth()->id();
         /* Manejo de imagen */
         if ($request->hasFile('image')) {
             /* Crear nombre de imagen */
@@ -61,6 +68,7 @@ class CourseController extends Controller
         }
         /* Crear curso con informacion validada */
         Course::create($data);
+
         return to_route('courses.index')->with('success', 'Curso creado correctamente.');
     }
 

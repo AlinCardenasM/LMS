@@ -15,6 +15,28 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
+        <!-- Top Navigation Bar -->
+        <nav class="w-full border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+            <div class="flex justify-end items-center px-6 py-3 gap-2">
+                <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium rounded-md {{ request()->routeIs('login')
+                            ? 'bg-indigo-600 text-white'
+                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700' }}
+                        transition duration-150 ease-in-out">
+                    {{ __('Iniciar Sesión') }}
+                </a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('students.register') }}" class="px-4 py-2 text-sm font-medium rounded-md
+                            {{ request()->routeIs('students.register')
+                                ? 'bg-indigo-600 text-white'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700' }}
+                            transition duration-150 ease-in-out">
+                        {{ __('Registrarse') }}
+                    </a>
+                @endif
+            </div>
+        </nav>
+        
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">

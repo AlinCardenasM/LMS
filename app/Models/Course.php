@@ -13,7 +13,8 @@ class Course extends Model
         'title',
         'description',
         'image',
-        'course_status_id'
+        'course_status_id',
+        'user_id'
     ];
 
     protected static function booted()
@@ -34,6 +35,11 @@ class Course extends Model
     public function modules()
     {
         return $this->hasMany(Module::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

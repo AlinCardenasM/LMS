@@ -10,17 +10,24 @@ use App\Http\Controllers\Submissions\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login-student');
 });
 
+Route::get('/students-register', function () {
+    return view('auth.register-student');
+})->name('students.register');
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return to_route('courses.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'student.restriction'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/student-register', function() {
+        return view('auth.register-student.blade');
+    });
 
     Route::resource('courses', CourseController::class);
     Route::resource('courses.modules', ModuleController::class);
