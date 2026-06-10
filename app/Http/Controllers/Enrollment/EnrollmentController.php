@@ -4,24 +4,17 @@ namespace App\Http\Controllers\Enrollment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
-    public function create(Course $course)
+    public function create()
     {
-
+        return view('lms.enrollment.create');
     }
 
     /**
@@ -29,38 +22,34 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'access_code' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $course = Course::where('access_code', strtoupper($request->access_code))->first();
+        /* dd($course->id); */
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if (! $course) {
+            return back()->withErrors(['access_code' => 'Código de acceso inválido.']);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($request->user()
+            ->courses()
+            ->where('courses.id', $course->id)
+            ->exists()) {
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            return back()->withErrors([
+                'access_code' => 'Ya estás inscrito en este curso.'
+            ]);
+        }
+
+        Enrollment::create([
+            'user_id' => auth()->id(),
+            'course_id' => $course->id,
+        ]);
+
+        return redirect()
+        ->route('courses.index')
+        ->with('success', 'Te has inscrito correctamente');
     }
 }
