@@ -43,6 +43,9 @@ class StudentRestriction
         'courses.assignments.update',
         'courses.assignments.destroy',
 
+        //Lista de usuarios en cursos
+        'courses.users.destroy'
+
         /* // Entregas — alumnos pueden crear (store) pero no editar ni eliminar
         'courses.assignments.submissions.edit',
         'courses.assignments.submissions.update',
