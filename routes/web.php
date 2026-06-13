@@ -5,6 +5,7 @@ use App\Http\Controllers\Assignments\AssignmentController;
 use App\Http\Controllers\Contents\ContentController;
 use App\Http\Controllers\Courses\CourseController;
 use App\Http\Controllers\Enrollment\EnrollmentController;
+use App\Http\Controllers\Grades\GradeController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Submissions\SubmissionController;
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'student.restriction'])->group(function () {
     Route::resource('courses.assignments', AssignmentController::class);
     Route::resource('enrollments', EnrollmentController::class);
     Route::resource('courses.users', UserListController::class);
+    Route::resource('courses.grades', GradeController::class);
 });
 
 Route::resource('courses.assignments.submissions', SubmissionController::class);
