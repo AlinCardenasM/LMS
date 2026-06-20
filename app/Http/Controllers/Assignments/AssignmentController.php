@@ -61,6 +61,33 @@ class AssignmentController extends Controller
         return to_route('courses.modules.index', $course);
     }
 
+    public function review(Course $course, Assignment $assignment)
+    {
+        // Estudiantes inscritos en el curso
+        $students = $course->users()->where('role', 'alumno')->get();
+
+        // Submissions con usuario y calificación
+        $submitted = $assignment->submissions()
+            ->with(['user'])
+            ->get();
+
+            
+        // IDs de quienes ya entregaron
+        $submittedUserIds = $submitted->pluck('user_id');
+
+        // Alumnos que NO han entregado
+        $assigned = $students->filter(function ($student) use ($submittedUserIds) {
+            return ! $submittedUserIds->contains($student->id);
+        });
+
+        return view('lms.submissions.review', compact(
+            'course',
+            'assignment',
+            'submitted',
+            'assigned'
+        ));
+    }
+
     /**
      * Display the specified resource.
      */

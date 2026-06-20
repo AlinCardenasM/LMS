@@ -9,6 +9,7 @@ use App\Http\Controllers\Grades\GradeController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Submissions\SubmissionController;
+use App\Http\Controllers\Submissions\SubmissionToProfessor;
 use App\Http\Controllers\UsersList\UserListController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,10 @@ Route::middleware(['auth', 'student.restriction'])->group(function () {
 });
 
 Route::resource('courses.assignments.submissions', SubmissionController::class);
-
+Route::get(
+    'courses/{course}/assignments/{assignment}/review',
+    [AssignmentController::class, 'review']
+)->name('assignments.review');
 
 
 require __DIR__.'/auth.php';

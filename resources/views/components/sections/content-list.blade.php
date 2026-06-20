@@ -15,6 +15,11 @@
         $editRoute = route('courses.assignments.edit', [$course,$item]);
         $deleteRoute = route('courses.assignments.destroy', [$course,$item]);
         $icon = 'clipboard-outline';
+        $assignedCount = $course->users()->count();
+
+        $submittedCount = $item->submissions()
+            ->distinct('user_id')
+            ->count('user_id');
 
     }
 
@@ -24,12 +29,15 @@
 
     {{-- Información izquierda --}}
     <div class="flex items-center gap-3">
-        <div class="bg-gray-100 p-3 rounded-full"> 
-            <ion-icon name="{{ $icon }}"></ion-icon> 
+        <div class="bg-gray-100 p-3 rounded-full">
+            <ion-icon name="{{ $icon }}"></ion-icon>
         </div>
 
         <div>
-            <a href="{{ $showRoute }}"> {{ $item->title }} </a>
+            <a href="{{ $showRoute }}">
+                {{ $item->title }}
+            </a>
+
             <p class="text-sm text-gray-500">
                 Publicado:
                 {{ $item->created_at->format('d M') }}
@@ -37,11 +45,40 @@
         </div>
     </div>
 
-    {{-- Menú derecha --}}
-    @if (auth()->user()->role === 'profesor')
-        <div> 
-            <x-menus.dropdown-actions :editRoute="$editRoute" :deleteRoute="$deleteRoute" :title="'¿Deseas eliminar '.$item->title.'?'" /> 
-        </div>
-    @endif
+    {{-- Información derecha --}}
+    <div class="flex items-center gap-8">
+
+        @if($type === 'assignment' && auth()->user()->role === 'profesor')
+
+            <div class="flex">
+
+                <div class="px-5 border-r text-center">
+                    <p class="text-2xl font-light text-gray-600">
+                        {{ $submittedCount }}
+                    </p>
+
+                    <a class="text-sm text-gray-600" href="{{ route('assignments.review', [$course, $item]) }}">Entregadas</a>
+                </div>
+
+                <div class="px-5 text-center">
+                    <p class="text-2xl font-light text-gray-600">
+                        {{ $assignedCount }}
+                    </p>
+                    <a class="text-sm text-gray-600" href="{{ route('assignments.review', [$course, $item]) }}">Asignadas</a>
+                </div>
+
+            </div>
+
+        @endif
+
+        @if(auth()->user()->role === 'profesor')
+            <x-menus.dropdown-actions
+                :editRoute="$editRoute"
+                :deleteRoute="$deleteRoute"
+                :title="'¿Deseas eliminar '.$item->title.'?'"
+            />
+        @endif
+
+    </div>
 
 </div>
