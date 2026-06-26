@@ -71,7 +71,9 @@ class AssignmentController extends Controller
             ->with(['user'])
             ->get();
 
-            
+         // Entrega seleccionada (la primera por defecto)
+        $selectedSubmission = $submitted->first();
+
         // IDs de quienes ya entregaron
         $submittedUserIds = $submitted->pluck('user_id');
 
@@ -84,7 +86,8 @@ class AssignmentController extends Controller
             'course',
             'assignment',
             'submitted',
-            'assigned'
+            'assigned',
+            'selectedSubmission'
         ));
     }
 

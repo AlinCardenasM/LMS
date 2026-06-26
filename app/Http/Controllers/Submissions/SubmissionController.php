@@ -65,9 +65,41 @@ class SubmissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Course $course,  Assignment $assignment,Submission $submission)
     {
-       /*  return view('lms.assigment.show', compact('course', 'submission')); */
+        $submission->load([
+            'user',
+            'files',
+            'grade'
+        ]);
+
+        // Estudiantes inscritos en el curso
+        $students = $course->users()->where('role', 'alumno')->get();
+
+        // Submissions con usuario y calificación
+        $submitted = $assignment->submissions()
+            ->with(['user'])
+            ->get();
+
+         // Entrega seleccionada (la primera por defecto)
+        $selectedSubmission = $submission;
+
+        // IDs de quienes ya entregaron
+        $submittedUserIds = $submitted->pluck('user_id');
+
+        // Alumnos que NO han entregado
+        $assigned = $students->filter(function ($student) use ($submittedUserIds) {
+            return ! $submittedUserIds->contains($student->id);
+        });
+
+        return view('lms.submissions.review', compact(
+            'course',
+            'assignment',
+            'submitted',
+            'assigned',
+            'selectedSubmission'
+        ));
+
     }
 
     /**
