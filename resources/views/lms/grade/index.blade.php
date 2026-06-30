@@ -16,18 +16,29 @@
 
                         {{-- Tareas --}}
                         @foreach($assignments as $assignment)
+                            @php
+                                $submission = $assignment->submissions->first();
+                            @endphp
 
-                            <th class="p-4 min-w-[180px] text-left">
-                                <div class="font-medium text-blue-700">
-                                    {{ $assignment->title }}
-                                </div>
+                            @if ($submission)
+                                <th class="p-4 min-w-[180px] text-left">
+                                    <a href="{{ route('courses.assignments.submissions.show', [
+                                        'course' => $course,
+                                        'assignment' => $assignment,
+                                        'submission' => 1,
+                                    ]) }}" class="font-medium text-blue-700">
+                                        {{ $assignment->title }}
+                                    </a>
 
-                                <div class="text-sm text-gray-500 mt-2">
-                                    de {{ $assignment->max_score }}
-                                </div>
-
+                                    <div class="text-sm text-gray-500 mt-2">
+                                        de {{ $assignment->max_score }}
+                                    </div>
+                                </th>
                                 
-                            </th>
+                            @else
+                                <span>{{ $assignment->title }}</span>
+                            @endif
+
 
                         @endforeach
 
