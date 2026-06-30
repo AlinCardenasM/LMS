@@ -39,7 +39,35 @@ Route::middleware(['auth', 'student.restriction'])->group(function () {
     Route::resource('courses.assignments', AssignmentController::class);
     Route::resource('enrollments', EnrollmentController::class);
     Route::resource('courses.users', UserListController::class);
-    Route::resource('courses.grades', GradeController::class);
+    // Listado de calificaciones del curso
+Route::get(
+    'courses/{course}/grade',
+    [GradeController::class, 'index']
+)->name('courses.grades.index');
+
+// Formulario para crear una calificación
+Route::get(
+    'courses/{course}/assignments/{assignment}/submissions/{submission}/grade',
+    [GradeController::class, 'create']
+)->name('submissions.grade.create');
+
+// Guardar la calificación
+Route::post(
+    'courses/{course}/assignments/{assignment}/submissions/{submission}/grade',
+    [GradeController::class, 'store']
+)->name('submissions.grade.store');
+
+// Formulario para editar la calificación
+Route::get(
+    'courses/{course}/assignments/{assignment}/submissions/{submission}/grade/edit',
+    [GradeController::class, 'edit']
+)->name('submissions.grade.edit');
+
+// Actualizar la calificación
+Route::put(
+    'courses/{course}/assignments/{assignment}/submissions/{submission}/grade',
+    [GradeController::class, 'update']
+)->name('submissions.grade.update');
 });
 
 Route::resource('courses.assignments.submissions', SubmissionController::class);

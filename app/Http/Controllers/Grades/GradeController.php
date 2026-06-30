@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Grade\StoreGradeRequest;
+use App\Http\Requests\Grade\UpdateGradeRequest;
 use App\Models\Assignment;
 use App\Models\Course;
+use App\Models\Grade;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -34,63 +38,56 @@ class GradeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Course $course, Assignment $assignment, Submission $submission) 
     {
-        //
+        return view('lms.grade.create', compact(
+            'course',
+            'assignment',
+            'submission'
+        ));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGradeRequest $request, Course $course, Assignment $assignment, Submission $submission)
     {
-        //
+        $data = $request->validated();
+        $data['submission_id'] = $submission->id;
+        $grade = Grade::create($data);
+        return to_route('courses.assignments.submissions.show', compact('course', 'assignment', 'submission'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Course $course, Assignment $assignment)
+    public function show(Course $course)
     {
-        /* $students = $course->users()
-        ->where('role', 'alumno')
-        ->get();
 
-        $submissions = $assignment->submissions()
-            ->with(['user', 'grade'])
-            ->get();
-
-        $submitted = $submissions;
-
-        $assigned = $students->filter(function ($student) use ($submissions) {
-            return !$submissions->contains('user_id', $student->id);
-        });
-
-        return view(
-            'lms.grades.show',
-            compact(
-                'course',
-                'assignment',
-                'submitted',
-                'assigned'
-            )
-        ); */
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course, Assignment $assignment, Submission $submission)
     {
-        //
+        $submission->load('grade');
+        return view('lms.grade.edit', compact(
+            'course',
+            'assignment',
+            'submission'
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateGradeRequest $request, Course $course, Assignment $assignment, Submission $submission)
     {
-        //
+        $data = $request->validated();
+        $grade = $submission->grade;
+        $grade->update($data);
+        return to_route('courses.assignments.submissions.show', compact('course', 'assignment', 'submission'));
     }
 
     /**

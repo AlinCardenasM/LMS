@@ -25,7 +25,6 @@ class UpdateGradeRequest extends FormRequest
         return [
             'score' => 'required|numeric|min:0',
             'feedback' => 'nullable|string|max:1000',
-            'submission_id' => 'required'
         ];
     }
 }

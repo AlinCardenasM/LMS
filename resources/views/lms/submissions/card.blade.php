@@ -4,6 +4,21 @@
     {{-- Encabezado --}}
     <div class="border-b p-8">
         <h1 class="text-3xl font-light">{{ $assignment->title }}</h1>
+        <div class="absolute right-8">
+            <x-menus.grade-menu
+            :createRoute="route('submissions.grade.create', [
+                'course' => $course,
+                'assignment' => $assignment,
+                'submission' => $selectedSubmission,
+            ])"
+            :editRoute="route('submissions.grade.edit', [
+                'course' => $course,
+                'assignment' => $assignment,
+                'submission' => $selectedSubmission,
+            ])"
+            />
+
+        </div>
         <div class="flex gap-12 mt-6">
             <div>
                 <p class="text-4xl font-light">{{ $submitted->count() }}</p>
@@ -13,6 +28,7 @@
                 <p class="text-4xl font-light">{{ $assigned->count() }}</p>
                 <p class="text-gray-500">Pendientes</p>
             </div>
+            
         </div>
     </div>
 
