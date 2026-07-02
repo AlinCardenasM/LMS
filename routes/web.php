@@ -21,6 +21,10 @@ Route::get('/students-register', function () {
     return view('auth.register-student');
 })->name('students.register');
 
+Route::get('/admin-register', function () {
+    return view('auth.register');
+})->name('admin.register');
+
 Route::get('/dashboard', function () {
     return to_route('courses.index');
 })->middleware(['auth', 'verified'])->name('dashboard');

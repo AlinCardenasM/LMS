@@ -16,6 +16,12 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        {{-- ROl --}}
+        <div>
+            <input type="hidden" name="role_id" value="1">
+            <input type="hidden" name="role" value="profesor">
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Contraseña')" />
