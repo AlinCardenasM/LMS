@@ -8,6 +8,7 @@ use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\Grades\GradeController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Settings\SettingController;
 use App\Http\Controllers\Submissions\SubmissionController;
 use App\Http\Controllers\Submissions\SubmissionToProfessor;
 use App\Http\Controllers\UsersList\UserListController;
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'student.restriction'])->group(function () {
     Route::resource('courses.assignments', AssignmentController::class);
     Route::resource('enrollments', EnrollmentController::class);
     Route::resource('courses.users', UserListController::class);
+    Route::resource('settings', SettingController::class);
     // Listado de calificaciones del curso
 Route::get(
     'courses/{course}/grade',

@@ -39,15 +39,12 @@ class RegisteredUserController extends Controller
         ]);
 
         $role = 'alumno';
-/*         dd($request);
- */        
-        if ($request['role_id'] == 1 || $request['role'] === "profesor") {
+        $role_id = 2;
+
+        if ($request->role_id == 1 && $request->role === 'profesor') {
             $role = 'profesor';
             $role_id = 1;
-        }else{
-            $role_id = 2;
         }
-
 
         $user = User::create([
             'name' => $request->name,
@@ -61,6 +58,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return $user->role === 'profesor'
+        ? redirect()->route('settings.create')
+        : redirect()->route('dashboard');
     }
 }

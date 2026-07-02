@@ -15,34 +15,72 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
+        @php
+            $setting = \App\Models\Setting::first();
+        @endphp
         <!-- Top Navigation Bar -->
         <nav class="w-full border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
-            <div class="flex justify-end items-center px-6 py-3 gap-2">
-                <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium rounded-md {{ request()->routeIs('login')
+            <div class="flex items-center justify-between px-6 py-3">
+
+                {{-- Nombre de la institución --}}
+                <div class="flex items-center gap-3">
+                    @if ($setting)
+                        <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200 truncate">
+                            {{ $setting->company_name }}
+                        </h1>
+                    @endif
+                </div>
+
+                {{-- Botones --}}
+                <div class="flex items-center gap-2">
+
+                    <a href="{{ route('login') }}"
+                        class="px-4 py-2 text-sm font-medium rounded-md
+                        {{ request()->routeIs('login')
                             ? 'bg-indigo-600 text-white'
                             : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700' }}
                         transition duration-150 ease-in-out">
-                    {{ __('Iniciar Sesión') }}
-                </a>
 
-                @if (Route::has('register'))
-                    <a href="{{ route('students.register') }}" class="px-4 py-2 text-sm font-medium rounded-md
+                        Iniciar Sesión
+
+                    </a>
+
+                    @if (Route::has('register'))
+
+                        <a href="{{ route('students.register') }}"
+                            class="px-4 py-2 text-sm font-medium rounded-md
                             {{ request()->routeIs('students.register')
                                 ? 'bg-indigo-600 text-white'
                                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700' }}
                             transition duration-150 ease-in-out">
-                        {{ __('Registrarse') }}
-                    </a>
-                @endif
+
+                            Registrarse
+
+                        </a>
+
+                    @endif
+
+                </div>
+
             </div>
+
         </nav>
         
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+            <div class="text-center">
+            <a href="/">
+                @if($setting && $setting->image)
+                    <img
+                        src="{{ asset($setting->image) }}"
+                        alt="{{ $setting->company_name }}"
+                        class="w-36 h-36 rounded-full object-cover mx-auto shadow-lg">
+                @else
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">
+                        Bienvenido
+                    </h1>
+                @endif
+            </a>
+        </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
