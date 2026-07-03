@@ -19,7 +19,7 @@ class CourseController extends Controller
         /* obtiene alusuario autenticado */
         $user = auth()->user();
         /* hace la validacion para filtrar */
-        if ($user->role_id == 1 ) {
+        if ($user->role == "profesor" ) {
             $courses = Course::where('user_id', $user->id)->paginate(10);
         } else {
             $courses = $user->courses()->paginate(10);
@@ -68,7 +68,6 @@ class CourseController extends Controller
         }
         /* Crear curso con informacion validada */
         Course::create($data);
-
         return to_route('courses.index')->with('success', 'Curso creado correctamente.');
     }
 
