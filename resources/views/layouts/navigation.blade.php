@@ -27,9 +27,11 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('settings.index')">
-                            {{ __('Configuración') }}
-                        </x-dropdown-link>
+                         @if (auth()->user()->role==="profesor")
+                            <x-dropdown-link :href="route('settings.index')">
+                                {{ __('Configuración') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Perfil') }}
